@@ -62,8 +62,6 @@ variables:
   ${{ if ne(variables['Build.SourceBranchName'], 'merge') }}:
     SOURCE_BRANCH: ${{ variables['Build.SourceBranchName'] }}
 
-
-
   MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
   MAVEN_OPTS: "-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)"
   title: ""
@@ -99,7 +97,7 @@ stages:
           - ${{ if ne(parameters.SEMVER, 'skip') }}:
               - template: templates/maven-github-release/template.yaml@pagopaCommons
                 parameters:
-                  release_branch: $(sourceBranch)
+                  release_branch: $(SOURCE_BRANCH)
                   gitEmail: $(GIT_EMAIL)
                   gitUsername: $(GIT_USERNAME)
                   gitHubConnection: $(GITHUB_CONNECTION)
