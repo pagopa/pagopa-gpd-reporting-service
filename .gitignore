@@ -4,6 +4,7 @@ target/
 
 # Log file
 *.log
+**/yarn.lock
 
 # BlueJ files
 *.ctxt
