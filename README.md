@@ -8,9 +8,9 @@ There is an example of a Http Trigger function.
 ---
 
 ## Run locally with Docker
-`docker build -t pagopa-functions-template .`
+`docker build -t pagopa-gpd-reporting-service .`
 
-`docker run -p 8999:80 pagopa-functions-template`
+`docker run -p 8999:80 pagopa-gpd-reporting-service`
 
 ### Test
 `curl http://localhost:8999/example`
