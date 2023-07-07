@@ -49,6 +49,6 @@ public class Info {
 		} catch (Exception e) {
 			logger.severe("Impossible to retrieve information from pom.properties file.");
 		}
-		return AppInfo.builder().version(version).environment("aks").name(name).build();
+		return AppInfo.builder().version(version).environment("azure-fn").name(name).build();
 	}
 }
