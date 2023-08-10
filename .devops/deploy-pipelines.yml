@@ -160,6 +160,17 @@ stages:
       - job: deployJava
         steps:
           # deploy reporting-fn
+          - task: AzureCLI@2
+            displayName: Start staging slot [PROD]
+            condition: eq('${{ parameters.ENV }}', 'prod')
+            inputs:
+              azureSubscription: $(AZURE_SUBSCRIPTION)
+              addSpnToEnvironment: true
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              failOnStandardError: true
+              inlineScript: |
+                az functionapp start --name ${{variables.APP_NAME}}-fn-gpd-service --resource-group $(RESOURCE_GROUP) --slot staging
           - task: AzureFunctionAppContainer@1
             displayName: Deploy Function App [DEV|UAT]
             condition: in('${{ parameters.ENV }}', 'dev', 'uat')
@@ -170,7 +181,7 @@ stages:
               slotName: production
               resourceGroupName: $(RESOURCE_GROUP)
           - task: AzureFunctionAppContainer@1
-            displayName: Deploy Function App [PROD] staging
+            displayName: Deploy Function App PROD staging
             condition: eq('${{ parameters.ENV }}', 'prod')
             inputs:
               azureSubscription: $(AZURE_SUBSCRIPTION)
@@ -213,3 +224,14 @@ stages:
               SourceSlot: staging
               SwapWithProduction: true
               Slot: production
+          - task: AzureCLI@2
+            displayName: Stop staging slot
+            condition: eq('${{ parameters.ENV }}', 'prod')
+            inputs:
+              azureSubscription: $(AZURE_SUBSCRIPTION)
+              addSpnToEnvironment: true
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              failOnStandardError: true
+              inlineScript: |
+                az functionapp stop --name ${{variables.APP_NAME}}-fn-gpd-service --resource-group $(RESOURCE_GROUP) --slot staging
