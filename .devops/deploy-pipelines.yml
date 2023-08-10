@@ -161,7 +161,7 @@ stages:
         steps:
           # deploy reporting-fn
           - task: Bash@3
-            name: Start staging slot
+            displayName: Start staging slot
             condition: in('${{ parameters.ENV }}', 'uat', 'prod')
             inputs:
               targetType: "inline"
@@ -222,7 +222,7 @@ stages:
               SwapWithProduction: true
               Slot: production
           - task: Bash@3
-            name: Stop staging slot
+            displayName: Stop staging slot
             inputs:
               targetType: "inline"
               script: |
