@@ -160,9 +160,17 @@ stages:
       - job: deployJava
         steps:
           # deploy reporting-fn
+          - task: Bash@3
+            name: Start staging slot
+            condition: in('${{ parameters.ENV }}', 'uat', 'prod')
+            inputs:
+              targetType: "inline"
+              script: |
+                az functionapp start --name ${{variables.APP_NAME}}-fn-gpd-service --resource-group $(RESOURCE_GROUP) --slot staging
+              failOnStderr: true
           - task: AzureFunctionAppContainer@1
-            displayName: Deploy Function App [DEV|UAT]
-            condition: in('${{ parameters.ENV }}', 'dev', 'uat')
+            displayName: Deploy Function App [DEV]
+            condition: eq('${{ parameters.ENV }}', 'dev')
             inputs:
               azureSubscription: $(AZURE_SUBSCRIPTION)
               appName: "${{variables.APP_NAME}}-fn-gpd-service"
@@ -170,8 +178,8 @@ stages:
               slotName: production
               resourceGroupName: $(RESOURCE_GROUP)
           - task: AzureFunctionAppContainer@1
-            displayName: Deploy Function App [PROD] staging
-            condition: eq('${{ parameters.ENV }}', 'prod')
+            displayName: Deploy Function App [UAT|PROD] staging
+            condition: in('${{ parameters.ENV }}', 'uat', 'prod')
             inputs:
               azureSubscription: $(AZURE_SUBSCRIPTION)
               appName: "${{variables.APP_NAME}}-fn-gpd-service"
@@ -183,13 +191,13 @@ stages:
           - script: |
               echo "##vso[task.setvariable variable=version;isOutput=true]$(pomversion.next)"
             name: dockerTag
-  - stage: deployApprovalPROD
-    condition: eq('${{ parameters.ENV }}', 'prod')
+  - stage: deployApproval[UAT|PROD]
+    condition: in('${{ parameters.ENV }}', 'uat', 'prod')
     dependsOn: deploy
     pool:
       vmImage: "ubuntu-latest"
     jobs:
-      - job: waitForApprovalPROD
+      - job: waitForApproval[UAT|PROD]
         displayName: waiting for approval
         pool: server
         timeoutInMinutes: 4320 # 3 days
@@ -200,8 +208,8 @@ stages:
               onTimeout: "reject"
 
       - job: completeProdDeployFn
-        displayName: complete prod function deploy
-        dependsOn: waitForApprovalPROD
+        displayName: complete uat|prod function deploy
+        dependsOn: waitForApproval[UAT|PROD]
         steps:
           # deploy functions - swap
           - task: AzureAppServiceManage@0
@@ -213,3 +221,10 @@ stages:
               SourceSlot: staging
               SwapWithProduction: true
               Slot: production
+          - task: Bash@3
+            name: Stop staging slot
+            inputs:
+              targetType: "inline"
+              script: |
+                az functionapp stop --name ${{variables.APP_NAME}}-fn-gpd-service --resource-group $(RESOURCE_GROUP) --slot staging
+              failOnStderr: true
