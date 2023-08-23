@@ -15,7 +15,7 @@ To run the integration tests on docker, you can run from this directory the scri
 
 
 ``` shell
-sh ./run_integration_test.sh <local|dev|uat> <api-subscription-key> <apiconfig_subkey> <gpd_subkey> <gps_spontaneouspayments_subkey> <gps_donations_subkey> <payments_subkey>
+sh ./run_integration_test.sh <local|dev|uat> <api-subscription-key>
 ```
 
 
