@@ -9,7 +9,7 @@ function apiConfigHealthCheck() {
     return get(host, {
         headers: {
             "Host": process.env.host_header,
-            "Ocp-Apim-Subscription-Key": process.env.API_CONFIG_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     })
 }
@@ -19,7 +19,7 @@ function readCreditorInstitution(organizationFiscalCode) {
     debugLog(`Calling endpoint: [${host}]`);  
     return get(host, {
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.API_CONFIG_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     })
 }
@@ -29,7 +29,7 @@ function readCreditorInstitutionIbans(organizationFiscalCode) {
     debugLog(`Calling endpoint: [${host}]`);  
     return get(host, {
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.API_CONFIG_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     })
 }
@@ -39,7 +39,7 @@ function readCreditorInstitutionBroker(brokerId) {
     debugLog(`Calling endpoint: [${host}]`);  
     return get(host, {
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.APICONFIG_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     })
 }
@@ -49,7 +49,7 @@ function readStation(stationId) {
     debugLog(`Calling endpoint: [${host}]`);  
     return get(host, {
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.APICONFIG_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     })
 }
@@ -59,7 +59,7 @@ function readCIStationAssociation(stationId, organizationFiscalCode) {
     debugLog(`Calling endpoint: [${host}]`);     
     return get(host, {
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.APICONFIG_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     })
 }
@@ -69,7 +69,7 @@ function readPSP(pspId) {
     debugLog(`Calling endpoint: [${host}]`);  
     return get(host, {
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.APICONFIG_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     })
 }
@@ -79,7 +79,7 @@ function readChannel(channelId) {
     debugLog(`Calling endpoint: [${host}]`);  
     return get(host, {
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.APICONFIG_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     })
 }

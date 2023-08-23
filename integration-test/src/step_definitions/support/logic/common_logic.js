@@ -28,8 +28,8 @@ async function assertStatusCode(response, statusCode) {
 
 module.exports = {
     assertEmptyList,
-    assertFlowXMLContent,
     assertNonEmptyList,
-    assertPaymentOptionStatus,
     assertStatusCode,
+    assertFlowXMLContent,
+    assertPaymentOptionStatus
 }

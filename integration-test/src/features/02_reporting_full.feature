@@ -20,4 +20,3 @@ Feature: All about flow report retrieving workflow - Complete flow
     And the client asks the detail for the analyzed debt positions
     * the client receives status code 200
     * the client receives the payment options with status "REPORTED"
-

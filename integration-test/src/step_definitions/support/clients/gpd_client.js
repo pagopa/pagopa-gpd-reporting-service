@@ -9,7 +9,7 @@ function gpdHealthCheck() {
     return get(host, {
         headers: {
             "Host": process.env.host_header,
-            "Ocp-Apim-Subscription-Key": process.env.GPD_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     })
 }
@@ -20,7 +20,7 @@ function createDebtPosition(organizationFiscalCode, body) {
     return post(host, body, {
         timeout: 10000,
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.GPD_SUBSCRIPTION_KEY,
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY,
             "Content-Type": "application/json"
         }
     })
@@ -32,7 +32,7 @@ function getPaymentOptionDetail(organizationFiscalCode, iuv) {
     return get(host, {
         timeout: 10000,
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.GPD_SUBSCRIPTION_KEY,
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY,
             "Content-Type": "application/json"
         }
     });
@@ -44,7 +44,7 @@ function payDebtPosition(organizationFiscalCode, iupd, body) {
     return post(host, body, {
         timeout: 10000,
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.GPD_SUBSCRIPTION_KEY,
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY,
             "Content-Type": "application/json"
         }
     })
@@ -56,7 +56,7 @@ function publishDebtPosition(organizationFiscalCode, iupd) {
     return post(host, "", {
         timeout: 10000,
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.GPD_SUBSCRIPTION_KEY,
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY,
             "Content-Type": "application/json"
         }
     })

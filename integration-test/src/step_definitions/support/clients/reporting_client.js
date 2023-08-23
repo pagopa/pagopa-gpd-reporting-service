@@ -8,7 +8,7 @@ async function getFlow(organizationFiscalCode, flowId, date) {
     debugLog(`Calling endpoint: [${host}]`);
     return get(host, {
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.REPORTING_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     });
 }
@@ -18,7 +18,7 @@ async function getFlowList(organizationFiscalCode) {
     debugLog(`Calling endpoint: [${host}]`);
     return get(host, {
         headers: {
-            "Ocp-Apim-Subscription-Key": process.env.REPORTING_SUBSCRIPTION_KEY
+            "Ocp-Apim-Subscription-Key": process.env.API_SUBSCRIPTION_KEY
         }
     });
 }

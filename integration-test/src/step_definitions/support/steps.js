@@ -1,17 +1,17 @@
 const { Before, BeforeStep, Given, setDefaultTimeout, Then, When } = require('@cucumber/cucumber');
 const { 
     assertEmptyList,
-    assertFlowXMLContent,
     assertNonEmptyList,
-    assertPaymentOptionStatus,
-    assertStatusCode
+    assertStatusCode,
+    assertFlowXMLContent,
+    assertPaymentOptionStatus
 } = require('./logic/common_logic');
 const { 
     generateAndPayDebtPosition, 
     generateDebtPosition,
     retrievePaymentOptionDetail
 } = require('./logic/gpd_logic');
-const { 
+const {
     executeHealthCheckForAPIConfig, 
     executeHealthCheckForGPD, 
     executeHealthCheckForGPDPayments,
@@ -42,34 +42,32 @@ Given('reporting analysis service running', () => executeHealthCheckForReporting
 /* 
  *  'Given' precondition for validating the entities to be used. 
  */
-Given('a not paid debt position', () => generateDebtPosition(bundle, true)); 
-Given('a paid debt position', () => generateAndPayDebtPosition(bundle)); 
-Given('a report flow sent to Node', () => sendReportFlowToNode(bundle)); 
+Given('a not paid debt position', () => generateDebtPosition(bundle, true));
+Given('a paid debt position', () => generateAndPayDebtPosition(bundle));
+Given('a report flow sent to Node', () => sendReportFlowToNode(bundle));
 
 
 /* 
  *  'When' clauses for executing actions.
  */
-When('the reporting batch analyzes the reporting flows for the organization', () => forceReportingBatchStart(bundle)); 
-When('the client waits its execution', () => waitWholeReportingProcessExecution()); 
+When('the reporting batch analyzes the reporting flows for the organization', () => forceReportingBatchStart(bundle));
+When('the client waits its execution', () => waitWholeReportingProcessExecution());
 
 
 /* 
  *  'Then' clauses for executing subsequential actions
  */
-Then('the client asks the flow list for the organization', () => retrieveReportFlowList(bundle)); 
-Then('the client asks the detail for one of the report flows', () => retrieveReportFlow(bundle)); 
-Then('the client asks the detail for the analyzed debt positions', () => retrievePaymentOptionDetail(bundle)); 
-
+Then('the client asks the flow list for the organization', () => retrieveReportFlowList(bundle));
+Then('the client asks the detail for one of the report flows', () => retrieveReportFlow(bundle));
+Then('the client asks the detail for the analyzed debt positions', () => retrievePaymentOptionDetail(bundle));
 
 /* 
  *  'Then' clauses for assering retrieved data 
  */
-Then('the client receives status code {int}', (statusCode) => assertStatusCode(bundle.response, statusCode)); 
-Then('the client receives a non-empty list of flows', () => assertNonEmptyList(bundle.response)); 
-Then('the client receives the flow XML content', () => assertFlowXMLContent(bundle.response, bundle.flow.id)); 
-Then('the client receives the payment options with status {string}', (status) => assertPaymentOptionStatus(bundle.response, status)); 
-
+Then('the client receives status code {int}', (statusCode) => assertStatusCode(bundle.response, statusCode));
+Then('the client receives a non-empty list of flows', () => assertNonEmptyList(bundle.response));
+Then('the client receives the flow XML content', () => assertFlowXMLContent(bundle.response, bundle.flow.id));
+Then('the client receives the payment options with status {string}', (status) => assertPaymentOptionStatus(bundle.response, status));
 
 Before(function(scenario) {
     const header = `| Starting scenario "${scenario.pickle.name}" |`;

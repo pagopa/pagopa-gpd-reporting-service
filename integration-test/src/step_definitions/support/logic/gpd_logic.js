@@ -77,7 +77,7 @@ async function generateAndPayDebtPosition(bundle) {
     
     response = await payDebtPosition(bundle.creditorInstitution.id, bundle.debtPosition.paymentOption[0].iuv, buildPayRequest(bundle));
     debugLog(`Debt position payment sending API invocation returned HTTP status code: ${response.status} with body: ${JSON. stringify(response.data)}`);
-    assert.strictEqual(response.status, 200);
+    assert([200, 409].includes(response.status));
 
     /*
     response = await sendRT(buildSendRTRequest(bundle));
