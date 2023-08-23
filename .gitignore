@@ -4,6 +4,7 @@ target/
 
 # Log file
 *.log
+**/yarn.lock
 
 # BlueJ files
 *.ctxt
@@ -37,3 +38,12 @@ hs_err_pid*
 local.settings.json
 bin/
 obj/
+
+# Project files
+/target/
+**/node_modules
+
+# Terraform
+**/.terraform/
+/.identity/.terraform.lock.hcl
+*.lock
