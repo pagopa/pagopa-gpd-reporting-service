@@ -24,10 +24,6 @@ parameters:
     values:
       - False
       - True
-  - name: INTEGRATION_TEST
-    displayName: Run integration tests
-    type: boolean
-    default: true
 
 variables:
   imageRepository: '$(IMAGE_REPOSITORY_NAME)'
