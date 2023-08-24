@@ -26,5 +26,5 @@ If you use dev, uat or prod **you test the images on Azure ACR**
 ---
 💻 If you want to test your local branch,
 ``` shell
-sh ./run_integration_test.sh local <api-subscription-key> <apiconfig_subkey> <gpd_subkey> <gps_spontaneouspayments_subkey> <gps_donations_subkey> <payments_subkey>
+sh ./run_integration_test.sh local <api-subscription-key>
 ```
