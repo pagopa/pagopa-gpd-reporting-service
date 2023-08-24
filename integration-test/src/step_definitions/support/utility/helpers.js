@@ -11,7 +11,7 @@ function buildStringFromDate(rawDate) {
 }
 
 function debugLog(message) {
-  if (process.env.include_debug_logs) {
+  if (process.env.include_debug_logs === "true") {
     console.log(`\t[DEBUG] | ${new Date().toISOString()} | ${message}`);
   }
 }
