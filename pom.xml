@@ -12,8 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-        <azure.functions.maven.plugin.version>1.12.0</azure.functions.maven.plugin.version>
-        <azure.functions.java.library.version>1.4.2</azure.functions.java.library.version>
+        <azure.functions.maven.plugin.version>1.27.0</azure.functions.maven.plugin.version>
+        <azure.functions.java.library.version>3.1.0</azure.functions.java.library.version>
         <azure.storage.blob.version>12.18.0</azure.storage.blob.version>
         <azure.storage.queue.version>12.0.0</azure.storage.queue.version>
         <azure.storage.version>8.6.6</azure.storage.version>
