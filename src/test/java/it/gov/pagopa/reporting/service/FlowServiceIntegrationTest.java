@@ -20,6 +20,7 @@ import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mockito;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -28,7 +29,9 @@ import org.testcontainers.utility.DockerImageName;
 import javax.activation.DataHandler;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.text.DateFormat;
@@ -72,14 +75,19 @@ class FlowServiceIntegrationTest {
 
     @Test
     void flowsBatchProcessingTest()
-            throws ParseException, DatatypeConfigurationException, InvalidKeyException, URISyntaxException {
+            throws ParseException, DatatypeConfigurationException, InvalidKeyException, URISyntaxException, IOException {
 
         flowsService = spy(new FlowsService(storageConnectionString, "identificativoIntemediarioPA",
                 "identificativoStazioneIntermediarioPA", "nodePassword",
                 "container", "queue", "flows", 1, 60, 0, logger));
 
         NodeService nodeService = mock(NodeService.class);
-        doReturn(mock(DataHandler.class)).when(nodeService)
+
+        DataHandler mockDataHandler = Mockito.mock(DataHandler.class);
+        InputStream mockedInputStream = new ByteArrayInputStream("Mocked data".getBytes());
+        Mockito.when(mockDataHandler.getInputStream()).thenReturn(mockedInputStream);
+
+        doReturn(mockDataHandler).when(nodeService)
                 .getNodoChiediElencoFlussiRendicontazioneXmlReporting();
 
         doReturn(nodeService).when(flowsService).getNodeServiceInstance();
