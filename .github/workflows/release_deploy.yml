@@ -38,7 +38,7 @@ permissions:
 env:
   REGISTRY: 'ghcr.io'
   NAMESPACE: 'pagopa'
-  IMAGE: 'pagopa-gpd-reporting-analysis'
+  IMAGE: 'pagopa-gpd-reporting-service'
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -166,7 +166,7 @@ jobs:
           ENV_SHORT: ${{ (contains(github.event.inputs.environment,'prod') && 'p') }}
         with:
           inlineScript: |
-            az functionapp start --name pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-analysis --resource-group pagopa-${{ env.ENV_SHORT }}-weu-gps-gpd-rg --slot staging
+            az functionapp start --name pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-service --resource-group pagopa-${{ env.ENV_SHORT }}-weu-gps-gpd-rg --slot staging
 
       - name: 'Run Azure Functions Container Action DEV|UAT: deploy on production slot'
         uses: Azure/functions-container-action@v1.2.1
@@ -175,7 +175,7 @@ jobs:
           ENV_SHORT: ${{ (contains(github.event.inputs.environment,'dev') && 'd') || (contains(github.event.inputs.environment, 'uat') && 'u') }}
           TAG: ${{needs.release.outputs.version}}
         with:
-          app-name: "pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-analysis"
+          app-name: "pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-service"
           image: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE }}:${{ env.TAG }}
           slot-name: production
 
@@ -186,7 +186,7 @@ jobs:
           ENV_SHORT: ${{ (contains(github.event.inputs.environment,'prod') && 'p') }}
           TAG: ${{needs.release.outputs.version}}
         with:
-          app-name: "pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-analysis"
+          app-name: "pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-service"
           image: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE }}:${{ env.TAG }}
           slot-name: staging
 
@@ -209,7 +209,7 @@ jobs:
           ENV_SHORT: ${{ (contains(github.event.inputs.environment,'prod') && 'p') }}
           TAG: ${{needs.release.outputs.version}}
         with:
-          app-name: "pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-analysis"
+          app-name: "pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-service"
           image: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE }}:${{ env.TAG }}
           slot-name: production
 
@@ -220,7 +220,7 @@ jobs:
           ENV_SHORT: ${{ (contains(github.event.inputs.environment,'prod') && 'p') }}
         with:
           inlineScript: |
-            az functionapp stop --name pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-analysis --resource-group pagopa-${{ env.ENV_SHORT }}-weu-gps-gpd-rg --slot staging
+            az functionapp stop --name pagopa-${{ env.ENV_SHORT }}-weu-fn-gpd-service --resource-group pagopa-${{ env.ENV_SHORT }}-weu-gps-gpd-rg --slot staging
 
       - name: Azure logout
         run: |
