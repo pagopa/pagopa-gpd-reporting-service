@@ -4,14 +4,14 @@
 
     <groupId>it.gov.pagopa.reporting</groupId>
     <artifactId>reporting-service</artifactId>
-    <version>0.0.10</version>
+    <version>0.0.11</version>
     <packaging>jar</packaging>
 
     <name>Azure Reporting-Service Fn</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <azure.functions.maven.plugin.version>1.27.0</azure.functions.maven.plugin.version>
         <azure.functions.java.library.version>3.1.0</azure.functions.java.library.version>
         <azure.storage.blob.version>12.18.0</azure.storage.blob.version>
