@@ -4,7 +4,7 @@ microservice-chart:
   fullnameOverride: ""
   image:
     repository: pagopadcommonacr.azurecr.io/pagopa<project-name> # TODO
-    tag: "0.0.11"
+    tag: "0.0.12"
     pullPolicy: Always
   # https://github.com/Azure/azure-functions-host/blob/dev/src/WebJobs.Script.WebHost/Controllers/HostController.cs
   livenessProbe:
@@ -71,3 +71,5 @@ microservice-chart:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  canaryDelivery:
+    create: false
