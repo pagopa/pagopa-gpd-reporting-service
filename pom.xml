@@ -4,7 +4,7 @@
 
     <groupId>it.gov.pagopa.reporting</groupId>
     <artifactId>reporting-service</artifactId>
-    <version>0.0.14</version>
+    <version>0.0.15</version>
     <packaging>jar</packaging>
 
     <name>Azure Reporting-Service Fn</name>
@@ -19,6 +19,7 @@
         <azure.storage.version>8.6.6</azure.storage.version>
         <resteasy.version>3.15.1.Final</resteasy.version>
         <functionAppName>reporting-service-20210712115055634</functionAppName>
+        <google-api-client.version>2.7.0</google-api-client.version>
     </properties>
 
     <dependencies>
@@ -114,6 +115,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client-gson</artifactId>
+            <version>${google-api-client.version}</version>
         </dependency>
 
         <!-- Util END-->
