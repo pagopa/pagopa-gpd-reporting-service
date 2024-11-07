@@ -46,7 +46,7 @@ class RetrieveDetailsConcurrentTest {
 	CacheResponse cacheResponse;
 	
 	@BeforeEach
-	void setup() throws Exception {
+	void setup() {
 		RetrieveDetails.setCacheContent(null);
 		Station station = Station.builder().stationCode("mockStationCode").brokerCode("mockBrokerCode").password("mockPwd").enabled(true).build();
         CreditorInstitutionStation creditorInstitutionStation = CreditorInstitutionStation.builder().creditorInstitutionCode("00595780131").stationCode("mockStationCode").build();
