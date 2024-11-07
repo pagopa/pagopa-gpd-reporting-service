@@ -46,7 +46,7 @@ class RetrieveDetailsConcurrentTest {
 	CacheResponse cacheResponse;
 	
 	@BeforeEach
-	void setup() {
+	void setup() throws IllegalArgumentException, IOException, Cache5XXException, Cache4XXException {
 		RetrieveDetails.setCacheContent(null);
 		Station station = Station.builder().stationCode("mockStationCode").brokerCode("mockBrokerCode").password("mockPwd").enabled(true).build();
         CreditorInstitutionStation creditorInstitutionStation = CreditorInstitutionStation.builder().creditorInstitutionCode("00595780131").stationCode("mockStationCode").build();
@@ -54,15 +54,15 @@ class RetrieveDetailsConcurrentTest {
         		.creditorInstitutionStations(Collections.singletonList(creditorInstitutionStation))
         		.stations(Collections.singletonList(station))
         		.build();
+        lenient().when(cacheClient.getCache()).thenReturn(cacheResponse);
 	}
 	
 	@ParameterizedTest
 	@ValueSource(ints = {1, 2})
 	void concurrentFlowsServiceInstanceCacheAccessTest(int number) throws Exception {
 		Logger logger = Logger.getLogger("RetrieveDetailsConcurrentTest");
-		lenient().when(cacheClient.getCache()).thenReturn(cacheResponse);
-        lenient().when(function.getVars(anyString())).thenReturn("60");
-        lenient().when(function.getCacheClientInstance()).thenReturn(cacheClient);
+		lenient().when(function.getVars(anyString())).thenReturn("60");
+		lenient().when(function.getCacheClientInstance()).thenReturn(cacheClient);
 		logger.fine("concurrentFlowsServiceInstanceCacheAccess - thread("+number+") start => " + Thread.currentThread().getName());
 		FlowsService flowService = function.getFlowsServiceInstance(logger, "00595780131");
 		assertNotNull(flowService);
