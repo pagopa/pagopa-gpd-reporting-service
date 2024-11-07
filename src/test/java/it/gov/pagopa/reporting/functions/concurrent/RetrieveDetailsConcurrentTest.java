@@ -60,7 +60,7 @@ class RetrieveDetailsConcurrentTest {
 	@ValueSource(ints = {1, 2})
 	void concurrentFlowsServiceInstanceCacheAccessTest(int number) throws Exception {
 		Logger logger = Logger.getLogger("RetrieveDetailsConcurrentTest");
-		lenient().doReturn(cacheResponse).when(cacheClient).getCache();
+		lenient().when(cacheClient.getCache()).thenReturn(cacheResponse);
         lenient().when(function.getVars(anyString())).thenReturn("60");
         lenient().when(function.getCacheClientInstance()).thenReturn(cacheClient);
 		logger.fine("concurrentFlowsServiceInstanceCacheAccess - thread("+number+") start => " + Thread.currentThread().getName());
