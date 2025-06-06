@@ -9,9 +9,11 @@
     "logLevel": {
       "default": "None",
       "Host.Results": "Error",
-      "Function.ElaborateOptionsFunction": "Information",
-      "Function.RetrieveDetailsFunction": "Information",
-      "Function.UpdateOptionFunction": "Information",
+      "Function.ElaborateOptionsFunction": "Warning",
+      "Function.RetrieveDetailsFunction": "Warning",
+      "Function.UpdateOptionFunction": "Warning",
+      "Microsoft": "Information",
+      "Worker": "Information",
       "Host.Aggregator": "Error",
       "Host": "Error"
     },
